@@ -31,9 +31,8 @@ Route::get('/services', function() {
 
 // All Post
 Route::get('/posts', [PostController::class, 'index']);
-
 // Single Post
-Route::get('/posts/{slug}', [PostController::class, 'show']);
+Route::get('/posts/{post:slug}', [PostController::class, 'show']);
 
 Route::get('/about', function() {
     return view('about', [

@@ -7,7 +7,8 @@
         <h1>Single Post</h1>
 
         <hr>
-        <h1>{{ $post['nama'] }}</h1>
+        <h1>{{ $post->title }}</h1>
+        <p>{!! $post->body !!}</p>
 
     </div>
     {{-- Hero Section End --}}

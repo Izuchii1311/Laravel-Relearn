@@ -10,10 +10,10 @@
         <div class="mt-5">
             @foreach ($posts as $post)
             <h2>
-                <a href="/posts/{{ $post['slug']; }}">{{ $post['nama']; }}</a>
+                <a href="/posts/{{ $post['slug']; }}">{{ $post['title']; }}</a>
             </h2>
-            <p>{{ $post['npm'] }}</p>
-            <p>{{ $post['jurusan'] }}</p>
+            <p>{{ $post['published_at'] }}</p>
+            <p>{{ $post['excerpt'] }}</p>
             @endforeach
         </div>
     </div>
