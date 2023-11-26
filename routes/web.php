@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Post;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,77 +23,23 @@ Route::get('/', function () {
 });
 
 // Blog Page
-Route::get('/blogs', function() {
-    return view('blogs', [
-        'title' => "Blogs",
+Route::get('/services', function() {
+    return view('services', [
+        'title' => "Services",
     ]);
 });
 
 // All Post
-Route::get('/posts', function() {
-    $blog_posts = [
-        [
-            "nama" => "Upi",
-            "slug" => "upi",
-            "npm" => 2142430,
-            "jurusan" => "IF"
-        ],
-        [
-            "nama" => "Upi2",
-            "slug" => "upi2",
-            "npm" => 2142430,
-            "jurusan" => "DEKAPI"
-        ],
-        [
-            "nama" => "Upi3",
-            "slug" => "upi3",
-            "npm" => 2142430,
-            "jurusan" => "ES I"
-        ]
-    ];
-    return view('posts', [
-        'title' => "All Post",
-        'posts' => $blog_posts
-    ]);
-});
+Route::get('/posts', [PostController::class, 'index']);
 
 // Single Post
-Route::get('/posts/{slug}', function($slug) {
-    $blog_posts = [
-        [
-            "nama" => "Upi",
-            "slug" => "upi",
-            "npm" => 2142430,
-            "jurusan" => "IF"
-        ],
-        [
-            "nama" => "Upi2",
-            "slug" => "upi2",
-            "npm" => 2142430,
-            "jurusan" => "DEKAPI"
-        ],
-        [
-            "nama" => "Upi3",
-            "slug" => "upi3",
-            "npm" => 2142430,
-            "jurusan" => "ES I"
-        ]
-    ];
-
-    $new_post = [];
-    foreach($blog_posts as $post) {
-        if($post['slug'] == $slug) {
-            $new_post = $post;
-        }
-    }
-    return view('post', [
-        'title' => "Single Post",
-        'post' => $new_post
-    ]);
-});
+Route::get('/posts/{slug}', [PostController::class, 'show']);
 
 Route::get('/about', function() {
     return view('about', [
-        'title' => "About Us",
+        'title' => "About Me",
+        'name' => "Luthfi Nur Ramadhan",
+        'email' => "luthfiramadhan.lr55@gmail.com",
+        'image' => 'about-me.png'
     ]);
 });

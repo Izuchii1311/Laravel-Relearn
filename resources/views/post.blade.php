@@ -3,9 +3,10 @@
 
 @section('container')
     {{-- Hero Section Start --}}
-    <div class="container">
-        <h1>Halaman Post</h1>
+    <div class="container mt-4">
+        <h1>Single Post</h1>
 
+        <hr>
         <h1>{{ $post['nama'] }}</h1>
 
     </div>

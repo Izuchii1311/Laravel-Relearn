@@ -3,9 +3,10 @@
 
 @section('container')
     {{-- Hero Section Start --}}
-    <div class="container">
+    <div class="container mt-4">
         <h1>Halaman Posts</h1>
 
+        <hr>
         <div class="mt-5">
             @foreach ($posts as $post)
             <h2>
