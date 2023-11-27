@@ -11,7 +11,7 @@
                     <a class="nav-link {{ ($title === 'Home Page') ? 'active' : '' }}" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ ($title === 'Services') ? 'active' : '' }}" href="/services">Services</a>
+                    <a class="nav-link {{ ($title === 'Categories') ? 'active' : '' }}" href="/categories">Categories</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ ($title === 'Blogs') ? 'active' : '' }}" href="/posts">Blogs</a>

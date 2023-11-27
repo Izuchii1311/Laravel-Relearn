@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Post;
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 
@@ -40,5 +41,21 @@ Route::get('/about', function() {
         'name' => "Luthfi Nur Ramadhan",
         'email' => "luthfiramadhan.lr55@gmail.com",
         'image' => 'about-me.png'
+    ]);
+});
+
+// Categories
+Route::get('/categories', function(Category $category) {
+    return view('categories',[
+        'title' => 'Categories',
+        'categories' => Category::all()
+    ]);
+});
+
+Route::get('/categories/{category:slug}', function(Category $category) {
+    return view('category',[
+        'title' => 'category',
+        'posts' => $category->posts,
+        'category' => $category->name
     ]);
 });
