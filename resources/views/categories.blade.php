@@ -8,7 +8,7 @@
 
         <hr>
         @foreach ($categories as $index => $category)
-            <h6>{{ $index }}). <a href="/categories/{{ $category->slug }}">{{ $category->name}}</a></h6>
+            <h4>{{ $loop->iteration }}). <a href="/categories/{{ $category->slug }}">{{ $category->name}}</a></h6>
         @endforeach
     </div>
     {{-- Hero Section End --}}

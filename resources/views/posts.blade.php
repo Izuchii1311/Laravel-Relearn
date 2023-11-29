@@ -9,12 +9,18 @@
         <hr>
         <div class="mt-5">
             @foreach ($posts as $post)
-            <h2>
-                <a href="/posts/{{ $post->slug; }}">{{ $post->title }}</a>
+            <h2 class="title">
+                <a href="/posts/{{ $post->slug; }}" class="text-decoration-none text-black">{{ $post->title }}</a>
             </h2>
-            <a href="/categories/{{ $post->category->slug }}">kategori : {{ $post->category->name }}</a>
-            <p>{{ $post->published_at }}</p>
-            <p>{{ $post->excerpt }}</p>
+            <p> By.
+                <a href="/authors/{{ $post->author->username }}" class="text-decoration-none text-dark-emphasis fst-italic">{{ $post->author->name }}</a>
+                in
+                <a href="/categories/{{ $post->category->slug }}" class="text-decoration-none text-dark-emphasis fst-italic">{{ $post->category->slug }}</a>
+            </p>
+            <p class="mb-4">{{ $post->excerpt }}
+                <br>
+                <a href="/posts/{{ $post->slug; }}">Read more ...</a>
+            </p>
             @endforeach
         </div>
     </div>
