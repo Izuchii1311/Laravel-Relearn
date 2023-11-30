@@ -8,16 +8,19 @@
         <div class="collapse navbar-collapse" id="navbarButtonsExample">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link {{ ($title === 'Home Page') ? 'active' : '' }}" href="/">Home</a>
+                    <a class="nav-link {{ ($active === 'home') ? 'active' : '' }}" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ ($title === 'Categories') ? 'active' : '' }}" href="/categories">Categories</a>
+                    <a class="nav-link {{ ($active === 'categories') ? 'active' : '' }}" href="/categories">Categories</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ ($title === 'Blogs') ? 'active' : '' }}" href="/posts">Blogs</a>
+                    <a class="nav-link {{ ($active === 'services') ? 'active' : '' }}" href="/services">Services</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ ($title === 'About Me') ? 'active' : '' }}" href="/about">About Me</a>
+                    <a class="nav-link {{ ($active === 'posts') ? 'active' : '' }}" href="/posts">Posts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ ($active === 'about') ? 'active' : '' }}" href="/about">About Me</a>
                 </li>
             </ul>
             <div class="d-flex align-items-center ms-auto">
