@@ -4,7 +4,24 @@
 @section('container')
     {{-- Hero Section Start --}}
     <div class="container mt-4">
-        <h1>{{ $title }}</h1>
+        <h1 class="text-center mb-3">{{ $title }}</h1>
+
+        <div class="row mb-3 justify-content-center">
+            <div class="col-md-6">
+                <form action="/posts" method="get">
+                    @if (request('category'))
+                        <input type="hidden" name="category" value={{ request('category') }}>
+                    @endif
+                    @if (request('author'))
+                        <input type="hidden" name="author" value={{ request('author') }}>
+                    @endif
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Search" name="search" value="{{ request('search') }}">
+                        <button class="input-group-text" type="submit" id="search">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
         <hr>
 
         @if ($posts->count() > 0) {{-- true --}}
@@ -17,9 +34,9 @@
                     <p class="text-center">
                         <small class="text-body-secondary">
                             By.
-                            <a href="/authors/{{ $posts[0]->author->username }}" class="text-decoration-none text-dark-emphasis fst-italic">{{ $posts[0]->author->name }}</a>
+                            <a href="/posts?author={{ $posts[0]->author->username }}" class="text-decoration-none text-dark-emphasis fst-italic">{{ $posts[0]->author->name }}</a>
                             in
-                            <a href="/categories/{{ $posts[0]->category->slug }}" class="text-decoration-none text-dark-emphasis fst-italic">{{ $posts[0]->category->slug }}</a>
+                            <a href="/posts?category={{ $posts[0]->category->slug }}" class="text-decoration-none text-dark-emphasis fst-italic">{{ $posts[0]->category->slug }}</a>
                             {{ $posts[0]->created_at->diffForHumans() }}
                         </small>
                     </p>
@@ -30,10 +47,6 @@
                 </div>
             </div>
 
-        @else
-            <p class='text-center fs-4'>No Post Found.</p>
-        @endif
-
         <div class="container">
             <div class="row">
 
@@ -41,7 +54,7 @@
                 <div class="col-md-4 mb-4">
                     <div class="card">
                         <div class="position-absolute bg-dark p-3 text-white" style="background-color: rgba(0, 0, 0, 0.7)">
-                            <a href="/categories/{{ $posts[0]->category->slug }}" class="text-decoration-none text-white">{{ $post->category->name }}</a>
+                            <a href="/posts?category={{ $posts[0]->category->slug }}" class="text-decoration-none text-white">{{ $post->category->name }}</a>
                         </div>
                         <img src="https://source.unsplash.com/500x400?{{ $post->category->name }}" class="card-img-top" alt="{{ $post->category->name }}">
                         <div class="card-body">
@@ -49,7 +62,7 @@
                                 <a href="/posts/{{ $post->slug; }}" class="text-decoration-none text-black">{{ $post->title }}</a>
                             </h5>
                             <p> By.
-                                <a href="/authors/{{ $post->author->username }}" class="text-decoration-none text-dark-emphasis fst-italic">{{ $post->author->name }}</a>
+                                <a href="/posts?author={{ $post->author->username }}" class="text-decoration-none text-dark-emphasis fst-italic">{{ $post->author->name }}</a>
                             </p>
                             <p class="mb-4">{{ $post->excerpt }}
                                 <br>
@@ -61,6 +74,15 @@
                 @endforeach
 
             </div>
+        </div>
+
+        @else
+            <p class='text-center fs-4'>No Post Found.</p>
+        @endif
+
+
+        <div class="d-flex justify-content-center">
+            {{ $posts->links() }}
         </div>
     {{-- Hero Section End --}}
 @endsection
