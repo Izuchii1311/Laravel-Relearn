@@ -21,12 +21,5 @@
             </div>
         </div>
     </div>
-
-
-
-    <div class="container mt-4">
-
-
-    </div>
     {{-- Hero Section End --}}
 @endsection
