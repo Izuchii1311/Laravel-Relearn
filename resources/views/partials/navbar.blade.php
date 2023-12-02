@@ -23,10 +23,31 @@
                     <a class="nav-link {{ ($active === 'about') ? 'active' : '' }}" href="/about">About Me</a>
                 </li>
             </ul>
-            <div class="d-flex align-items-center ms-auto">
-                <a href="/login" class="btn btn-default d-block text-white px-3 me-2 { ($active === 'login') ? 'active' : '' }}"><i class="bi bi-box-arrow-right"></i> Login</a>
-                <a href="/register" class="btn btn-primary me-3 { ($active === 'register') ? 'active' : '' }}">Register</a>
-            </div>
+            <ul class="navbar-nav ms-auto">
+                @auth
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Welcome back, {{ auth()->user()->name }}
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/dashboard"><i class="bi bi-layout-text-window-reverse"></i> MyDashboard</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form action="/logout" method="post">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item"><i class="bi bi-box-arrow-right"></i> Logout</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                @else
+                <li class="d-flex nav-item">
+                    <a href="/login" class="btn btn-default d-block text-white px-3 me-2 { ($active === 'login') ? 'active' : '' }}"><i class="bi bi-box-arrow-right"></i> Login</a>
+                    <a href="/register" class="btn btn-primary me-3 { ($active === 'register') ? 'active' : '' }}">Register</a>
+                </li>
+                @endauth
+            </ul>
+
         </div>
     </div>
 </nav>

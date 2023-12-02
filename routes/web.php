@@ -5,8 +5,12 @@ use App\Models\User;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,37 +31,22 @@ Route::get('/', function () {
     ]);
 });
 
-// Blog Page
-Route::get('/services', function() {
-    return view('services', [
-        'title' => "Services",
-        "active" => "services",
-    ]);
-});
-
-// All Post
-Route::get('/posts', [PostController::class, 'index']);
-// Single Post
-Route::get('/posts/{post:slug}', [PostController::class, 'show']);
-
-Route::get('/about', function() {
-    return view('about', [
-        'title' => "About Me",
-        'name' => "Luthfi Nur Ramadhan",
-        'email' => "luthfiramadhan.lr55@gmail.com",
-        'image' => 'about-me.png',
-        "active" => "about",
-    ]);
-});
-
 // Categories
-Route::get('/categories', function(Category $category) {
-    return view('categories',[
-        'title' => 'Categories',
-        "active" => "categories",
-        'categories' => Category::all()
-    ]);
-});
+Route::get('/categories', [CategoryController::class, 'indexCategories']);
+// Services
+Route::get('/services', [ServiceController::class, 'index']);
+// Posts
+Route::get('/posts', [PostController::class, 'index']);
+Route::get('/posts/{post:slug}', [PostController::class, 'show']);
+// About
+Route::get('/about', [AboutController::class, 'index']);
 
-Route::get('/login', [LoginController::class, 'index']);
-Route::get('/register', [RegisterController::class, 'index']);
+// Login
+Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
+Route::post('/login', [LoginController::class, 'authenticate']);
+Route::post('/logout', [LoginController::class, 'logout']);
+// Register
+Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
+Route::post('/register', [RegisterController::class, 'store']);
+// Dashboard
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
