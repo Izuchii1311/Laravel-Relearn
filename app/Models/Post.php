@@ -6,10 +6,11 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Post extends Model
 {
-    use HasFactory;
+    use HasFactory, Sluggable;
 
     // protected $fillable = ['title', 'excerpt', 'body'];
     protected $guarded = ['id'];
@@ -43,7 +44,18 @@ class Post extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    // Route default slug
     public function getRouteKeyName() {
         return 'slug';
+    }
+
+    // Slugable
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
     }
 }
