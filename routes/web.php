@@ -12,6 +12,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardPostController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,3 +56,6 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('aut
 // Dashboard Post
 Route::get('/dashboard/posts/checkSlug', [DashboardPostController::class, 'checkSlug'])->middleware('auth');
 Route::resource('/dashboard/posts', DashboardPostController::class)->middleware('auth');
+
+// Dashboard Admin
+Route::resource('/dashboard/categories', AdminCategoryController::class)->except('show')->middleware('admin');
