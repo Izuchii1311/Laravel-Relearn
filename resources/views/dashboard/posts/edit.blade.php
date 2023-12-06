@@ -5,7 +5,7 @@
         <h1 class="h2">Edit Posts</h1>
     </div>
 
-    <form action="/dashboard/posts/{{ $post->slug }}" method="post">
+    <form action="/dashboard/posts/{{ $post->slug }}" method="post" enctype="multipart/form-data">
     @method('put')
     @csrf
         <div class="mb-3">
@@ -39,6 +39,21 @@
             </select>
         </div>
         <div class="mb-3">
+            <label for="image" class="form-label @error('image') is-invalid @enderror">Update new Image</label>
+            <input type="hidden" name="oldImage" value="{{ $post->image }}">
+            @if ($post->image != null)
+                <img src="{{ asset('storage/' . $post->image) }}" alt="" class="img-preview img-fluid mb-3 col-sm-5 d-block">
+            @else
+                <img src="" alt="" class="img-preview img-fluid mb-3 col-sm-5 d-block">
+            @endif
+            <input class="form-control" type="file" id="image" name="image" onchange="previewImage()">
+            @error('image')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+        <div class="mb-3">
             <label for="body" class="form-label">Body</label>
             @error('body')
                 <p class="text-danger">{{ $message }}</p>
@@ -50,6 +65,7 @@
     </form>
 
     <script>
+        // Slugable
         const title = document.querySelector('#title');
         const slug = document.querySelector('#slug');
 
@@ -58,5 +74,20 @@
                 .then(response => response.json())
                 .then(data => slug.value = data.slug)
         });
+
+        // Preview Image
+        function previewImage() {
+            const image = document.querySelector('#image');
+            const imgPreview = document.querySelector('.img-preview');
+
+            imgPreview.style.display = 'block';
+
+            const oFReader = new FileReader();
+            oFReader.readAsDataURL(image.files[0]);
+
+            oFReader.onload = function(oFREvent) {
+                imgPreview.src = oFREvent.target.result;
+            }
+        }
     </script>
 @endsection
