@@ -5,7 +5,7 @@
         <h1 class="h2">Create new Posts</h1>
     </div>
 
-    <form action="/dashboard/posts" method="post">
+    <form action="/dashboard/posts" method="post" enctype="multipart/form-data">
     @csrf
         <div class="mb-3">
             <label for="title" class="form-label @error('title') is-invalid @enderror">Title</label>
@@ -36,6 +36,15 @@
                     @endif
                 @endforeach
             </select>
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label @error('image') is-invalid @enderror">Upload Image</label>
+            <input class="form-control" type="file" id="image" name="image">
+            @error('image')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
         <div class="mb-3">
             <label for="body" class="form-label">Body</label>

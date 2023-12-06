@@ -8,7 +8,13 @@
                 <h1>{{ $post->title }}</h1>
                 <p>{{ $post->category->name }}</p>
                 <hr>
-                <img src="https://source.unsplash.com/1200x400?{{ $post->category->name }}" class="card-img-top img-fluid mb-2" alt="{{ $post->category->name }}">
+                @if($post->image != null)
+                    <div style="max-height: 400px; overflow: hidden;">
+                        <img src="{{ asset('storage/' . $post->image) }}" class="card-img-top img-fluid mb-2" alt="{{ $post->category->name }}">
+                    </div>
+                @else
+                    <img src="https://source.unsplash.com/1200x400?{{ $post->category->name }}" class="card-img-top img-fluid mb-2" alt="{{ $post->category->name }}">
+                @endif
                 <a href="/dashboard/posts" class="btn btn-success">Back to my posts</a>
                 <a href="/dashboard/posts/{{ $post->slug }}/edit" class="btn btn-warning text-white">Edit</a>
                 <form action="/dashboard/posts/{{ $post->slug }}" method="post" class="d-inline">
