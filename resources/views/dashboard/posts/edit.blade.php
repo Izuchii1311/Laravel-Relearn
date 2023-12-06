@@ -2,14 +2,15 @@
 
 @section('container')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Create new Posts</h1>
+        <h1 class="h2">Edit Posts</h1>
     </div>
 
-    <form action="/dashboard/posts" method="post">
+    <form action="/dashboard/posts/{{ $post->slug }}" method="post">
+    @method('put')
     @csrf
         <div class="mb-3">
             <label for="title" class="form-label @error('title') is-invalid @enderror">Title</label>
-            <input type="text" class="form-control" id="title" name="title" required autofocus value="{{ old('title') }}">
+            <input type="text" class="form-control" id="title" name="title" required autofocus value="{{ old('title', $post->title) }}">
             @error('title')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -18,7 +19,7 @@
         </div>
         <div class="mb-3">
             <label for="slug" class="form-label @error('slug') is-invalid @enderror">Slug</label>
-            <input type="text" class="form-control" id="slug" name="slug" readonly required value="{{ old('slug') }}">
+            <input type="text" class="form-control" id="slug" name="slug" readonly required value="{{ old('slug', $post->slug) }}">
             @error('slug')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -29,7 +30,7 @@
             <label for="category_id" class="form-label @error('category_id') is-invalid @enderror">Category</label>
             <select class="form-select" name="category_id">
                 @foreach ($categories as $category)
-                    @if (old('category_id') == $category->id)
+                    @if (old('category_id', $post->category_id) == $category->id)
                         <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
                     @else
                         <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -42,10 +43,10 @@
             @error('body')
                 <p class="text-danger">{{ $message }}</p>
             @enderror
-            <input id="body" type="hidden" name="body" value="{{ old('body') }}">
+            <input id="body" type="hidden" name="body" value="{{ old('body', $post->body) }}">
             <trix-editor input="body"></trix-editor>
         </div>
-        <button type="submit" class="btn btn-primary">Create Posts</button>
+        <button type="submit" class="btn btn-primary">Update Posts</button>
     </form>
 
     <script>
