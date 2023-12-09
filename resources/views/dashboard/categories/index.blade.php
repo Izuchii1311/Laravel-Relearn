@@ -16,9 +16,9 @@
         <table class="table table-striped table-sm">
             <thead>
                 <tr>
-                <th scope="col">No</th>
-                <th scope="col">Category Name</th>
-                <th scope="col">Action</th>
+                    <th scope="col">No</th>
+                    <th scope="col">Category Name</th>
+                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,7 +28,7 @@
                         <td>{{ $category->name }}</td>
                         <td>
                             <div class="d-flex">
-                                <a href="/dashboard/categories/{{ $category->slug }}" class="mx-2"><span class="badge bg-info">Detail</span></a>
+                                {{-- <a href="/dashboard/categories/{{ $category->slug }}" class="mx-2"><span class="badge bg-info">Detail</span></a> --}}
                                 <a href="/dashboard/categories/{{ $category->slug }}/edit" class="mx-2"><span class="badge bg-warning">Edit</span></a>
                                 <form action="/dashboard/categories/{{ $category->slug }}" method="post" class="d-inline">
                                     @method('delete')
