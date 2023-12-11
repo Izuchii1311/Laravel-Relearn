@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 
 class CategoryController extends Controller
@@ -46,7 +47,7 @@ class CategoryController extends Controller
 
         Category::create($validatedData);
 
-        return redirect('/dashboard/categories')->with('success', "Create new category successfully");
+        return redirect('dashboard/categories')->with('success', "Create new category successfully");
     }
 
     /**
@@ -62,7 +63,9 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('dashboard.categories.edit', [
+            "category" => $category,
+        ]);
     }
 
     /**
@@ -70,7 +73,23 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'slug' => 'required|max:255',
+            'image' => 'image|file|max:2048'
+        ]);
+
+        if ($request->file('image')) {
+            if($request->oldImage) {
+                Storage::delete($request->oldImage);
+            }
+            $validatedData['image'] = $request->file('image')->store('category-images');
+        }
+
+        Category::where('id', $category->id)->update($validatedData);
+
+        // return redirect('dashboard/categories')->with('success', "Category has been Updated");
+        return redirect('dashboard/categories')->with('success', "Category has been Updated");
     }
 
     /**
@@ -78,7 +97,13 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        if ($category->image) {
+            Storage::delete($category->image);
+        }
+
+        Category::destroy($category->id);
+
+        return redirect('dashboard/categories')->with('success', "Category has been Deleted");
     }
 
     /**
